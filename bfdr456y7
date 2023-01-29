@@ -1,0 +1,10 @@
+--[[ This isn't meant to be hidden but made by Atomicals#8791 ]]
+local OldNameCall = nil
+    OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
+    local Args = {...}
+    local NamecallMethod = getnamecallmethod()
+    if not checkcaller() and Self.Name == "Damage" and NamecallMethod == "FireServer" and getgenv().missingArg == nil then
+    getgenv().missingArg = Args[8]
+    end
+    return OldNameCall(Self, ...)
+end)
